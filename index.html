@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div id="controls">
+			<h1>Polyline Editing Tool</h1>
+			<div class="footer">
+				<div class="handle">
+					<a onclick="openDrawer('#about', this)">info</a>
+					<a onclick="openDrawer('#preferences', this)">prefs</a>
+				</div>
+				<div class="drawer">
+					<div id="preferences">
+						<div>
+							<label for="api-key">Google Maps API Key <a class="sup" href="https://developers.google.com/maps/documentation/javascript/get-api-key">get</a></label>
+							<input type="text" name="api-key" id="api-key" placeholder="YOUR_API_KEY">
+						</div>
+						<div>
+							<label for="min-zoom">Min Zoom</label>
+							<input type="number" name="min-zoom" id="min-zoom" value="8" min="0" max="17">
+						</div>
+						<div>
+							<label for="max-zoom">Max Zoom</label>
+							<input type="number" name="max-zoom" id="max-zoom" value="18" max="0" min="1">
+						</div>
+						<div>
+							<label for="double-click">Double Click to Zoom</label>
+							<input type="checkbox" name="double-click" id="double-click">
+						</div>
+						<div>
+							<a onclick="updatePrefs()">Save</a>
+							<a onclick="closeDrawer()">Cancel</a>
+						</div>
+					</div>
+					<div id="about">
+						<p>Strava doesnt let me edit my rides so I did it myself.</p>
+						<p>Made by <a target="_blank" href="https://rohan.xyz">rohan</a></p>
+						<p>Bugs or feature requests can be made on <a target="_blank" href="https://github.com/rohanb10/polyline-point-purger">github</a></p>
+						<div><a onclick="closeDrawer()">Close</a></div>
+					</div>
+				</div>
+			</div>
+			<div class="steps">
+				<ol>
+					<li class="step active" data-step="1">
+						<div class="action">Upload the polyline</div>
+						<div class="instructions">
+							<p>Make sure your polyline<a class="sup" href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">?</a> is properly encoded and escaped<a class="sup" href="https://github.com/mapbox/polyline/issues/23">?</a></p>
+							<div class="upload">
+								<label for="polyline-file">Upload a file (.txt)</label>
+								<input type="file" id="polyline-file" name="polyline-file" accept=".txt">
+							</div>
+							<div>
+								<label for="polyline-file">or paste it directly</label>
+								<input type="text" id="polyline-text" name="polyline-text">
+							</div>
+						</div>
+						<div class="next"><a onclick="goToStep(2)">Next</a></div>
+					</li>
+					<li class="step" data-step="2">
+						<div class="action" onclick="goToStep(2)">Edit the polyline</div>
+						<div class="instructions">
+							<ul>
+								<li>Drag vertices along the map to the correct position.</li>
+								<li>Drag the translucent vertex between two existing opaque vertices to create a new one</li>
+								<li>Left click on a vertex you want to remove.</li>
+								<li>Draw a shape to remove vertices in bulk
+									<ul>
+										<li>Right click to begin drawing the shape</li>
+										<li>Right click a second time to confirm the size of the shape</li>
+										<li>Left click inside the shape to remove half of the vertices contained in the shape's bounds. Repeat as many times as needed</li>
+										<li>Right click a third time to delete the shape</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="next"><a onclick="goToStep(3)">Next</a></div>
+						</div>
+					</li>
+					<li class="step" data-step="3">
+						<div class="action" onclick="goToStep(3)">Download the polyline</div>
+						<div class="instructions">
+							<p>Download the freshly edited polyline in your preferred format</p>
+							<div class="download">
+								<div class="prefs">
+									<select id="export-type" onchange="updateMediums(this)">
+										<option value="polyline">Polyline</option>
+										<option value="cords">Coordinates</option>
+									</select>
+									to
+									<select id="export-medium" onchange="updateNL(this)">
+										<option id="option_clipboard" value="clipboard">Clipboard</option>
+										<option id="option_csv" value="csv" disabled>CSV</option>
+										<option id="option_txt" value="txt">Text file</option>
+										<option id="option_arr" value="arr" disabled>Text file (Array)</option>
+										<option id="option_obj" value="obj" disabled>Text file (Object)</option>
+									</select>
+								</div>
+								<div id="nl" class="hidden">
+									<input type="checkbox" id="new_lines" checked disabled>
+									<label for="new_lines">Each coordinate on new line?</label>
+								</div>
+								<a class="go" onclick="exportPath()">Go</a>
+							</div>
+
+							<div class="clipboard-hidden"></div>
+							<div class="message"></div>
+						</div>
+					</li>
+				</ol>
+			</div>
+		</div>
+		<div id="map"></div>
+	</div>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="polylines.js"></script>
+
+	<script src="script.js"></script>
+	<script src="controls.js"></script>
+</body>
+</html>
