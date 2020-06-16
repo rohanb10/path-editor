@@ -10,26 +10,35 @@
 			<h1>Polyline Editing Tool</h1>
 			<div class="footer">
 				<div class="handle">
-					<a onclick="openDrawer('#about', this)">info</a>
-					<a onclick="openDrawer('#preferences', this)">prefs</a>
+					<a onclick="openDrawer('about', this)">info</a>
+					<a onclick="openDrawer('preferences', this)">prefs</a>
 				</div>
 				<div class="drawer">
 					<div id="preferences">
-						<div>
+						<!-- <div>
 							<label for="api-key">Google Maps API Key <a class="sup" href="https://developers.google.com/maps/documentation/javascript/get-api-key">get</a></label>
-							<input type="text" name="api-key" id="api-key" placeholder="YOUR_API_KEY">
+							<input type="text" id="api-key" placeholder="YOUR_API_KEY">
+						</div> -->
+						<div>
+							<label for="map-type">Map Type</label>
+							<select id="map-type">
+								<option value="roadmap">Roads (default)</option>
+								<option value="satellite">Satellite</option>
+								<option value="hybrid">Hybrid</option>
+								<option value="terrain">Terrain</option>
+							</select>
 						</div>
 						<div>
 							<label for="min-zoom">Min Zoom</label>
-							<input type="number" name="min-zoom" id="min-zoom" value="8" min="0" max="17">
+							<input type="number" id="min-zoom" value="8" min="0" max="17">
 						</div>
 						<div>
 							<label for="max-zoom">Max Zoom</label>
-							<input type="number" name="max-zoom" id="max-zoom" value="18" max="0" min="1">
+							<input type="number" id="max-zoom" value="18" max="1" min="18">
 						</div>
 						<div>
 							<label for="double-click">Double Click to Zoom</label>
-							<input type="checkbox" name="double-click" id="double-click">
+							<input type="checkbox" id="double-click">
 						</div>
 						<div>
 							<a onclick="updatePrefs()">Save</a>
@@ -46,23 +55,28 @@
 			</div>
 			<div class="steps">
 				<ol>
-					<li class="step active" data-step="1">
-						<div class="action">Upload the polyline</div>
+					<div class="step active" data-step="0">
+						<div class="instructions">
+								<p>A simple tool to edit paths and remove vertices (in bulk).</p>
+								<p>Some export options might not work with all browsers. For best results, use Chrome.<p>
+							<div class="next"><a onclick="goToStep(1)">Start</a></div>
+						</div>
+					</div>
+					<li class="step" data-step="1">
+						<div class="action" onclick="goToStep(1)">Upload</div>
 						<div class="instructions">
 							<p>Make sure your polyline<a class="sup" href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">?</a> is properly encoded and escaped<a class="sup" href="https://github.com/mapbox/polyline/issues/23">?</a></p>
 							<div class="upload">
-								<label for="polyline-file">Upload a file (.txt)</label>
-								<input type="file" id="polyline-file" name="polyline-file" accept=".txt">
-							</div>
-							<div>
+								<input type="file" id="polyline-file" onchange="uploaded('file', this)" accept=".txt" autocomplete="off">
+								<label for="polyline-file"><span></span><span>Upload a text file</span></label>
 								<label for="polyline-file">or paste it directly</label>
-								<input type="text" id="polyline-text" name="polyline-text">
+								<input type="textarea" rows="8" id="polyline-text" oninput="uploaded('text', this)" onpaste="uploaded('paste', this)" autocomplete="off">
 							</div>
 						</div>
-						<div class="next"><a onclick="goToStep(2)">Next</a></div>
+						<div class="next hidden"><a onclick="goToStep(1.5)">Preview</a></div>
 					</li>
 					<li class="step" data-step="2">
-						<div class="action" onclick="goToStep(2)">Edit the polyline</div>
+						<div class="action" onclick="goToStep(2)">Edit</div>
 						<div class="instructions">
 							<ul>
 								<li>Drag vertices along the map to the correct position.</li>
@@ -81,18 +95,18 @@
 						</div>
 					</li>
 					<li class="step" data-step="3">
-						<div class="action" onclick="goToStep(3)">Download the polyline</div>
+						<div class="action" onclick="goToStep(3)">Download</div>
 						<div class="instructions">
 							<p>Download the freshly edited polyline in your preferred format</p>
 							<div class="download">
 								<div class="prefs">
-									<select id="export-type" onchange="updateMediums(this)">
-										<option value="polyline">Polyline</option>
+									<select id="export-type" onchange="updateMediums(this)" autocomplete="off">
+										<option value="polyline" selected>Polyline</option>
 										<option value="cords">Coordinates</option>
 									</select>
 									to
-									<select id="export-medium" onchange="updateNL(this)">
-										<option id="option_clipboard" value="clipboard">Clipboard</option>
+									<select id="export-medium" onchange="updateNL(this)" autocomplete="off">
+										<option id="option_clipboard" value="clipboard" selected>Clipboard</option>
 										<option id="option_csv" value="csv" disabled>CSV</option>
 										<option id="option_txt" value="txt">Text file</option>
 										<option id="option_arr" value="arr" disabled>Text file (Array)</option>
@@ -100,14 +114,15 @@
 									</select>
 								</div>
 								<div id="nl" class="hidden">
-									<input type="checkbox" id="new_lines" checked disabled>
+									<input type="checkbox" id="new_lines" checked=true disabled=true>
 									<label for="new_lines">Each coordinate on new line?</label>
 								</div>
 								<a class="go" onclick="exportPath()">Go</a>
 							</div>
-
-							<div class="clipboard-hidden"></div>
 							<div class="message"></div>
+							<div class="clipboard-hidden"></div>
+							<br>
+							<p>Some download options might not work with all browsers. For best results, use Chrome<p>
 						</div>
 					</li>
 				</ol>
