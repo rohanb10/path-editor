@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&family=Assistant:wght@300;400;600&display=swap&text=1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%21%40%23%24%25%5E%26%2A%28%29~%60%27%22%2C.%3C%3E%7B%7D%5B%5D%3F%2F%3A%3B%7C%5C_-%3D%2B');
+
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: 'Assistant', sans-serif;
+}
+* {
+	box-sizing: border-box;
+}
+a {
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: 600;
+	&.sup {
+		vertical-align: super;
+		font-size: .75em;
+		&:before {
+			content: '['
+		}
+		&:after {
+			content: ']'
+		}
+	}
+}
+.container {
+	display: flex;
+	flex-direction: row-reverse;
+	width: 100%;
+	height: 100%;
+	& > div {
+		height: 100%;
+	}
+}
+h1 {
+	font-family: 'Secular One', serif;
+	text-align: center;
+	margin: 0 auto;
+	img {
+		height: 1.5em;
+		margin-right: .5em;
+		transform: translateY(.3em);
+	}
+}
+option, select {
+	text-align-last:center;
+	text-align: center;
+}
+select {
+	padding: .5em 2em .5em .5em;
+	margin: 0 .5em;
+	border: none;
+	border-bottom: 2px solid black;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'), linear-gradient(to bottom, #ffffff 0%,#fff 100%);
+	background-repeat: no-repeat, repeat;
+	background-position: right .7em top 50%, 0 0;
+	background-size: .65em auto;
+	border-radius: 0;
+}
+// hide gmap warning
+#map {
+	width: 60%;
+	& > div:nth-of-type(2) {
+		display: none;
+	}	
+}
+#controls {
+	position: relative;
+	padding: 0 1em 1em;
+	width: 40%;
+	overflow-y: hidden;
+	min-width: 28em;
+	.steps {
+		transition: all 1s ease-in-out;
+		margin: 0 auto;
+		overflow-y: scroll;
+		max-height: 90vh;
+		p.center {
+			text-align: center;
+		}
+		.step {
+			font-size: 1.5em;
+			font-weight: bold;
+			opacity: .2;
+			transition: all 1s ease-in-out;
+			padding-bottom: 1em;
+			&.complete .action {
+				cursor: pointer;
+				pointer-events: initial;
+				touch-actions: initial;
+			}
+			.action {
+				font-family: 'Secular One', serif;
+				pointer-events: none;
+				touch-actions: none;
+			}
+			
+			.instructions, .next {
+				font-size: initial;
+				font-weight: normal;
+				max-height: 0;
+				overflow-y: hidden;
+			}
+			.instructions {
+				transition: all 1s ease-in-out;
+				padding: 0 1.5em;
+				.upload {
+					text-align: center;
+				}
+				div {
+					padding-bottom: 1em;
+				}
+				img {
+					max-height: 60px;
+					.svg {
+						stroke: red;
+					}
+				}
+				input, label {
+					overflow-x: auto;
+					margin: .5em auto;
+					display: block;
+				}
+				input[type="file"] {
+					width: 0.1px;
+					height: 0.1px;
+					opacity: 0;
+					overflow: hidden;
+					position: absolute;
+					z-index: -1;
+				}
+				input[type="file"] + label {
+					font-size: 1.25em;
+					cursor: pointer;
+					padding: .5em 1em;
+					border: 2px solid #000;
+					display: inline-block;
+					transition: all .2s ease-in-out;
+					span {
+						transition: inherit;
+					}
+					span:first-of-type {
+						display: inline-block;
+						width: 1em;
+						height: 1em;
+						border: 2px solid #000;
+						margin-right: 1em;
+						transform: translateY(.15em);
+						&.uploaded {
+							background-color: #000;	
+						}
+					}
+
+				}
+				textarea {
+					border: 1px solid #ddd;
+					outline: none;
+					resize: none;
+					max-width: 100%;
+					overflow: auto;
+					background-color: #eee;
+					&::placeholder {
+						line-height: 7.5;
+						text-align: center;
+					}
+				}
+				input[type="file"] + label:hover {
+					border-radius: 1em;
+					span:first-of-type, span:first-of-type.uploaded {
+						border-radius: 1em;
+					}
+				}
+				input[type="file"]:disabled + label {
+					border-radius: 0;
+					border-color: #ccc;
+					background-color: #ddd;
+					color: #aaa;;
+					span:first-of-type {
+						border-radius: 0;
+						border-color: #ccc;
+					}
+				}
+				.export-hidden {
+					display: none;
+				}
+				.download {
+					text-align: center;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					padding: 2em 0;
+					.go {
+						font-size: 1.5em;
+					}
+					.download-preferences {
+						padding: 0;
+					}
+					#nl {
+						padding: 2em 0;
+						font-size: .8em;
+						opacity: 1;
+						input {
+							display: unset;
+						}
+						label {
+							padding-left: 1.5em;
+						}
+						display: flex;
+						justify-content: center;
+						&.hidden {
+							opacity: 0;
+						}
+					}
+				}
+			}
+			.next {
+				text-align: center;
+				opacity: 1;
+				padding: 1.25em 0;
+				transition: opacity .5s cubic-bezier(1,-0.36,.48,.54), max-height 1s ease-in-out;
+				a {
+					padding: .5em 2em;
+					border: 2px solid black;
+					transition: all .3s ease-in-out;
+					font-size: 1.25em;
+					& > span {
+						position: relative;
+						display: inline-block;
+						transition: inherit;
+						&:before {
+							content: "\21E2";
+							font-weight: 300;
+							position: absolute;
+							transition: inherit;
+							opacity: 0;
+							// top: 25%;
+							left: 90%;
+						}
+					}
+					
+					&:hover {
+						border-radius: 1em;
+						& > span {
+							transform: translateX(-25%);
+							&:before {
+								left: 125%;
+								opacity: 1;
+							}
+						}
+					}
+				}
+				&.hidden {
+					opacity: 0;
+				}
+			}
+			&.active {
+				opacity: 1;
+				padding-bottom: 0;
+				.instructions, .next {
+					max-height: 80vh;
+				}
+				.next {
+					
+				}
+			}
+		}
+	}
+	.toaster {
+		position: absolute;
+		bottom: -3.5em;
+		left: 0;
+		right: 0;
+		width: 60%;
+		height: 3em;
+		margin: 0 auto;
+		z-index: 3;
+		overflow-y: hidden;
+		transition: bottom .5s ease-in-out;
+		.bread {
+			text-align: center;
+			background-color: #fff;
+			font-size: 1.25em;
+			padding: .5em 0;
+		}
+		&.toast {
+			bottom: 0;
+		}
+	}
+	.footer.open ~ div {
+		opacity: .15;
+	}
+	.footer {
+		border-top: 1px solid #fff;
+		background-color: #fff;
+		z-index: 2;
+		padding: .5em 0 .25em;
+		position: absolute;
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		transition: all 1s ease-in-out;
+		.handle {
+			padding: 0 .5em;
+			display: flex;
+			justify-content: space-between;
+			a {
+				transition: all 1s ease-in-out;
+				position: relative;
+				img {
+					max-height: 2em;
+					max-width: 2em;
+				}
+				&:before {
+					font-weight: 300;
+					content: attr(data-label);
+					position: absolute;
+					top: 15%;
+					left: 125%;
+					white-space: nowrap;
+					transition: all .2s ease-in-out;
+					opacity: 0;
+				}
+				&.reset {
+					opacity: 1;
+					transition-delay: .5s;
+					&.hidden, &.hidden:before {
+						opacity: 0;
+						pointer-events: none;
+						touch-actions: none;
+					}
+					&:before {
+						left: 50%;
+						top: -65%;
+						transform: translate(-50%, 0%);	
+					}
+				}
+				&:last-of-type:before {
+					left: unset;
+					right: 135%;
+				}
+				&:hover:before {
+					opacity: 1;
+				}
+			}
+		}
+		.drawer {
+			text-align: left;
+			width: 100%;
+			padding: 0 1em;
+			transition: inherit;
+			a:hover {
+				text-decoration: underline;
+			}
+			& > div {
+				max-height: 0;
+				overflow-y: hidden;
+				transition: inherit;
+				& > div {
+					padding: 1em 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					&:last-of-type {
+						padding-bottom: 1em;
+						justify-content: center;
+						a:nth-of-type(2) {
+							margin-left: 2em;
+							color: #999;
+						}
+					}
+					.color-picker-container {
+						position: relative;
+						.color-square {
+							display: inline-block;
+							width: 1em;
+							height: 1em;
+							border-radius: .25em;
+							&[data-color="1"] {
+								background-color: #11a59e;
+							}
+							&[data-color="2"] {
+								background-color: #fad26d;
+							}
+							&[data-color="3"] {
+								background-color: #ff6363;
+							}
+							&[data-color="4"] {
+								background-color: #6f7df6;
+							}
+							&[data-color="5"] {
+								background-color: #42d96f;
+							}
+							&[data-color="6"] {
+								background-color: #77cbf9;
+							}
+							&[data-color="7"] {
+								background-color: #f39605;
+							}
+							&[data-color="8"] {
+								background-color: #fe8a8a;
+							}
+							&[data-color="9"] {
+								background-color: #3c4d53;
+							}
+						}
+						.color-picker-tooltip {
+							position: absolute;
+							background-color: #fff;
+							top: 0;
+							right: 0;
+							padding: 1em;
+							width: 10em;
+							border-radius: .25em;
+							border: 2px solid #ddd;
+							display: none;
+							.color-square {
+								width: 2em;
+								height: 2em;
+								margin-top: 0;
+								margin-left: .75em;
+								cursor: pointer;
+								border: 2px solid #fff;
+								box-sizing: initial;
+								transition: border-color .2s ease-in-out;
+								&:first-of-type {
+									margin-left: 0;
+								}
+								&:hover {
+									border-color: #ccc;
+								}
+								&.selected, &.selected:hover {
+									border-color: #000;
+								}
+							}
+							div {
+								margin-top: .75em;
+								display: flex;
+								justify-content: space-between;
+								&:first-of-type {
+									margin-top: 0;
+								}
+							}
+						}
+						&:hover .color-picker-tooltip, .color-picker-tooltip:hover {
+							display: block;
+						}
+					}
+				}
+				input {
+					display: inline-block;
+					overflow-x: auto;
+					text-align: right;
+				}
+				input[type="number"] {
+					width: 3.5em;
+					text-align: center;
+				}
+
+			}
+		}
+		&.open {
+			border-color: #000;
+			.handle {
+				& > a {
+					opacity: 0;
+					cursor: unset;
+					&.open, &.open:before {
+						opacity: 1;
+					}
+				}
+			}
+			.drawer > div.open {
+				max-height: 90vh;
+			}
+		}
+		
+	}
+}
+
