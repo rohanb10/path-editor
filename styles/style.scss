@@ -23,6 +23,9 @@ a {
 		}
 	}
 }
+.mobile-container {
+	display: none;
+}
 .container {
 	display: flex;
 	flex-direction: row-reverse;
@@ -575,5 +578,21 @@ select {
 	}
 	90% {
 		transform: rotate(2deg);
+	}
+}
+@media screen and (max-width: 40em) {
+	.container {
+		display: none;
+	}
+	.mobile-container {
+		width: 100vw;
+		height: 100vh;
+		padding: 2em 1em;
+		display: flex;
+		text-align: center;
+		justify-content: space-around;
+		align-items: center;
+		flex-direction: column;
+		div {}
 	}
 }

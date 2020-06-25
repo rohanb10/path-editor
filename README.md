@@ -13,9 +13,10 @@ Accepts a variety of popular GPS formats, and can export to most of them too
 	5. [Polylines](#polylines)
 2. [Editing paths](#editing-paths)
 3. [Output Formats](#output-formats)
-4. [Map Settings and Privacy](#map-settings-and-privacy)
-5. [Roadmap](#roadmap)
-6. [About](#about)
+4. [Sample Files](#sample-files)
+5. [Map Settings and Privacy](#map-settings-and-privacy)
+6. [Roadmap](#roadmap)
+7. [About](#about)
 
 
 
@@ -196,6 +197,9 @@ The first or last vertex of the path cannot be deleted.
 4. Polylines
 
 I am working on adding GPX that is compatible enough to upload to Strava.
+
+## Sample Files
+A bunch of sample files to use can be [found here](https://rohanb10.github.io/path-editor/sample_files/)
 
 ## Map Settings and Privacy
 The settings drawer contains some basic options to configure the UI of the map. These settings are saved in a cookie that expires in 14 days.

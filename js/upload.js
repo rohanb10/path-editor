@@ -59,14 +59,18 @@ function changeFileType(el, message = 'n/a') {
 	goToStep(1, false);
 }
 
-function guessFileType(fileName) {
+function guessFileType(fileName, text = "") {
 	var fileExt = fileName ? fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase() : '';
 	// GPX, CSV, 
-	if (Object.keys(FILE_MAP).indexOf(fileExt) > -1){
+	if (fileExt && Object.keys(FILE_MAP).indexOf(fileExt) > -1){
 		changeFileType(FILE_MAP[fileExt].type)
-		return;
 	} else {
-		changeFileType(null, 'Select File Type');
+		if (fileName.toLowerCase().indexOf('polyline') > -1) {
+			changeFileType(FILE_MAP['poly'].type);
+		} else {
+			changeFileType(null, 'Select File Type');
+		}
+		
 	}
 }
 
@@ -82,7 +86,7 @@ function readInputFile() {
 		var rr = reader.result;
 		Object.assign(document.getElementById('input-text'), {disabled: true, value: rr});
 		hideNextButton(1, false);
-		guessFileType(document.getElementById('input-file').files[0].name)
+		guessFileType(document.getElementById('input-file').files[0].name);
 	};
 	reader.readAsText(document.getElementById('input-file').files[0]);
 }
