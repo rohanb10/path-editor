@@ -207,18 +207,18 @@ There is a bit of anonymous tracking on Google Analytics - simply for time spent
 ## Roadmap
 In no particular order
 - Map themes
-- Accept arrays, CSVs, and objects as input
+- ~~Accept arrays, CSVs, and objects as input~~
 - Add vertices from the start or end of the path
 - Read from URLs as input
 - Output previews
 - Output stats (number of vertices edited, file size reduction etc.)
 - Email URL for later when opened on mobile
 - Keyboard gestures
+- ~~Long long readme~~
 - Share Map as Image
 - Stats (distance, elevation etc) after edits complete
 - Feedback button (formspree maybe?)
-
-
+- Migrate some functions to a seperate path converter tool
 
 
 ## About
@@ -232,17 +232,12 @@ Free to use.  Now and forever.
 Most of the code is vanilla CSS and JS with the exception of the libraries below.
 
 #### 3rd party code
-[Polyline](https://github.com/mapbox/polyline) - Mapbox
-
-[Simplecopy](https://github.com/kyle-rb/simplecopy) - Kyle Boyle
-
-[Cookie.js](https://github.com/florian/cookie.js) - Florian Hartmann
+- [Polyline](https://github.com/mapbox/polyline) - Mapbox
+- [Simplecopy](https://github.com/kyle-rb/simplecopy) - Kyle Boyle
+- [Cookie.js](https://github.com/florian/cookie.js) - Florian Hartmann
 
 
 #### Other cool mapping tools
-[Strava Multiple Ride Mapper](https://www.jonathanokeeffe.com/strava/map.php) - Jonathan O'Keefe
-
-[Heatflask](https://www.heatflask.com/) - Efrem Rensi
-
-[Mapbox](https://www.mapbox.com/) - Didn't use them for this project but they do great work
-
+- [Strava Multiple Ride Mapper](https://www.jonathanokeeffe.com/strava/map.php) - Jonathan O'Keefe
+- [Heatflask](https://www.heatflask.com/) - Efrem Rensi
+- [Mapbox](https://www.mapbox.com/) - Didn't use them for this project but they do great work
