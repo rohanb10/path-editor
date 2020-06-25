@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sample Files | Path Editor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		body {
+			margin: 0;
+		}
+		body > div {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-family: 'Arial', sans-serif;
+		}
+		a {
+			width: 100vw;
+			display: block;
+			text-align: center;
+			padding: .75em 0;
+		}
+		a:nth-of-type(2n - 1) {
+			background-color: #ddd;
+		}
+		a:after {
+			content: attr(href);
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<a href="cords.csv"></a>
+		<a href="cords.gpx"></a>
+		<a href="cords.json"></a>
+		<a href="cords-array.txt"></a>
+		<a href="cords-object.txt"></a>
+		<a href="polyline.txt"></a>
+		<a href="polyline_longer.csv"></a>
+	</div>
+</body>
+</html>
