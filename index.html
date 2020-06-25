@@ -6,11 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="rohan, bhansali, rohanb10, rohanb10@gmail.com, rohan xyz, path, editor, polyline, coordinates, gps, map, vertex, bulk, multiple, delete, edit, add, modify, subtract, tool, strava, run, ride, hike, bike, cycle, line, eraser">
 	<meta name="description" content="A simple tool to edit your GPS runs and rides. No login required, this website is free to use">
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
 	<meta name="theme-color" content="#93BF7A">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
@@ -19,13 +17,13 @@
 		<div id="controls">
 			<h1><img src="img/logo.png" alt="">Path Editing Tool</h1>
 			<div class="toaster">
-				<div class="bread"></div>
+				<div class="bread"><div></div></div>
 			</div>
 			<div class="footer">
 				<div class="handle">
 					<a data-label="Map Settings" data-name='preferences' onclick="openDrawer(this)"><img src="img/settings.png"></a>
 					<a class="reset hidden" data-label="Reset" onclick="resetAll()"><img src="img/reset.png"></a>
-					<a data-label="Info" data-name='info' onclick="openDrawer(this)"><img src="img/info.png"></a>
+					<a data-label="Info" data-name='info' onclick="openDrawer(this)"><img src="img/help.png"></a>
 				</div>
 				<div class="drawer">
 					<div id="preferences">
@@ -97,7 +95,7 @@
 				</div>
 			</div>
 			<div class="steps">
-				<div class="step active" data-step="0">
+				<div class="step" data-step="0">
 					<div class="instructions">
 						<p>A simple tool to modify paths.</p>
 						<p>Add, edit or delete an unlimited number of vertices.</p>
@@ -105,15 +103,28 @@
 						<div class="next"><a onclick="goToStep(1, true)"><span>Start<span></a></div>
 					</div>
 				</div>
-				<div class="step" data-step="1">
+				<div class="step active" data-step="1">
 					<div class="action" onclick="goToStep(1)">1. Upload</div>
 					<div class="instructions">
-						<p class="center">Make sure your polyline<a class="sup" target="_blank" href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">?</a> is properly encoded and escaped<a class="sup" target="_blank" href="https://github.com/mapbox/polyline/issues/23">?</a></p>
+						<p>&nbsp;</p>
 						<div class="upload">
-							<input type="file" id="polyline-file" onchange="uploaded('file', this)" accept=".txt" autocomplete="off">
-							<label for="polyline-file"><span></span><span>Upload a text file</span></label>
+							<input type="file" id="input-file" onchange="uploaded('file', this)" accept=".txt, .gpx, .csv, .geojson, .json" autocomplete="off">
+							<label for="input-file"><span></span><span>Upload a text file</span></label>
 							<p>or add it directly</p>
-							<textarea rows="8" cols="48" id="polyline-text" oninput="uploaded('text', this)" onpaste="uploaded('paste', this)" autocomplete="off" placeholder="polyline"></textarea>
+							<div class="input-text-container">
+								<textarea rows="11" id="input-text" oninput="uploaded('text', this)" autocomplete="off" placeholder="Select a format"></textarea>
+								<span class="file-type-selected" data-selected="Waiting for input">
+									<span class="file-type-overlay">
+										<span onclick="changeFileType(this)" data-file="Coordinates" class="file-type"></span>
+										<span onclick="changeFileType(this)" data-file="Polyline" class="file-type"></span>
+										<span onclick="changeFileType(this)" data-file="CSV" class="file-type"></span>
+										<span onclick="changeFileType(this)" data-file="GPX" class="file-type"></span>
+										<span onclick="changeFileType(this)" data-file="GeoJSON" class="
+										file-type"></span>
+										<!-- <span onclick="changeFileType(this)" data-file="URL" class="file-type"></span> -->
+									</span>
+								</span>
+							</div>
 						</div>
 						<div class="next hidden"><a onclick="goToStep(1.5)"><span>Preview</span></a></div>
 					</div>

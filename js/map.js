@@ -30,7 +30,8 @@ function fitPathInViewport() {
 	map.fitBounds(bounds);
 }
 
-function render(poly, preview) {
+function render(poly) {
+	console.log('render\n',poly);
 	if (path !== null) path.setMap(null);
 	path = new google.maps.Polyline({
 		path: getLatLngArrayFromPolyline(poly, mapOptions.precision),
@@ -156,6 +157,7 @@ function exportCords(array, type, newlines = false) {
 var pathModified = false;
 function removeVertex(p, vertex) {
 	if (!p || vertex == undefined) return;
+	if (vertex === 0 || vertex === p.length - 1) return;
 	pathModified = true;
 	p.removeAt(vertex);
 }

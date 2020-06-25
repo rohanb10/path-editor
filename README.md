@@ -67,7 +67,7 @@ Headers are optional. If they exist, they will be ignored.
 Order must be latitude first followed by longitude
 
 Example format
-```
+```c
 latitude, longitude
 37.76084, -122.42851
 37.76095, -122.42839
@@ -126,7 +126,7 @@ Only `LineString` geometry will be parsed, all other types will be ignored. If y
 ```
 
 ### GPX
-Strava use this so of course I have to support it.
+Strava uses this so of course I have to support it.
 Unlike Strava, this tool doesnt require timestamps, so you can upload "incomplete" `.gpx` files and process them here.
 
 **GPX File Sample**
@@ -160,7 +160,7 @@ Coordinates can be encoded into polylines using [Google's Polyline algorithm](ht
 
 Note:  Backslashes need to be escaped for polylines to render correctly.
 If your polyline is not escaped you can use this snippet of code to do it:
-```
+```javascript
 p.split(String.fromCharCode(92)).join(String.fromCharCode(92,92));
 ```
 
@@ -233,12 +233,16 @@ Most of the code is vanilla CSS and JS with the exception of the libraries below
 
 #### 3rd party code
 [Polyline](https://github.com/mapbox/polyline) - Mapbox
+
 [Simplecopy](https://github.com/kyle-rb/simplecopy) - Kyle Boyle
+
 [Cookie.js](https://github.com/florian/cookie.js) - Florian Hartmann
 
 
 #### Other cool mapping tools
 [Strava Multiple Ride Mapper](https://www.jonathanokeeffe.com/strava/map.php) - Jonathan O'Keefe
+
 [Heatflask](https://www.heatflask.com/) - Efrem Rensi
+
 [Mapbox](https://www.mapbox.com/) - Didn't use them for this project but they do great work
 

@@ -39,7 +39,7 @@ h1 {
 	img {
 		height: 1.5em;
 		margin-right: .5em;
-		transform: translateY(.3em);
+		transform: translateY(.25em);
 	}
 }
 option, select {
@@ -83,11 +83,11 @@ select {
 			text-align: center;
 		}
 		.step {
-			font-size: 1.5em;
+			font-size: 1.4em;
 			font-weight: bold;
 			opacity: .2;
 			transition: all 1s ease-in-out;
-			padding-bottom: 1em;
+			padding-bottom: .25em;
 			&.complete .action {
 				cursor: pointer;
 				pointer-events: initial;
@@ -111,7 +111,7 @@ select {
 				.upload {
 					text-align: center;
 				}
-				div {
+				& > div {
 					padding-bottom: 1em;
 				}
 				img {
@@ -156,16 +156,76 @@ select {
 					}
 
 				}
-				textarea {
-					border: 1px solid #ddd;
-					outline: none;
-					resize: none;
-					max-width: 100%;
-					overflow: auto;
-					background-color: #eee;
-					&::placeholder {
-						line-height: 7.5;
-						text-align: center;
+				.input-text-container {
+					position: relative;
+					textarea {
+						border: 1px solid #ddd;
+						outline: none;
+						resize: none;
+						width: 100%;
+						overflow: auto;
+						background-color: #eee;
+						&::placeholder {
+							color: #444;
+							opacity: .3;
+						}
+					}
+					.file-type-selected {
+						position: absolute;
+						top: 0.25em;
+						right: 0.25em;
+						font-size: .8em;
+						color: #fff;
+						background-color: rgba(34, 34, 34, .8);
+						padding: .1em .5em;
+						border-radius: .25em;
+						z-index: 2;
+						display: inline-block;
+						&:before {
+							content: attr(data-selected);
+						}
+						.file-type-overlay {
+							display: none;
+							position: absolute;
+							top: 0;
+							right: 0;
+							z-index: 3;
+							.file-type {
+								cursor: pointer;
+								display: block;
+								text-align: center;
+								border-radius: .25em;
+								background-color: #888;
+								margin: .25em 0;
+								padding: .1em .5em;
+								border: 2px solid #888;
+								opacity: 1;
+								&:before {
+									content: attr(data-file);
+								}
+								&:first-of-type {
+									margin-top: 0;
+								}
+								&:hover {
+									background-color: #666;
+									border-color: #666;
+								}
+								&.selected, &:hover.selected {
+									cursor: default;
+									background-color: #333;
+									border-color: #000;
+									text-decoration: underline;
+								}
+							}
+						}
+						&:hover {
+							background-color: #eee;
+							color: #eee;
+							animation: none;
+							.file-type-overlay {
+								display: block;
+							}
+						}
 					}
 				}
 				input[type="file"] + label:hover {
@@ -256,6 +316,8 @@ select {
 				}
 				&.hidden {
 					opacity: 0;
+					pointer-events: none;
+					touch-actions: none;
 				}
 			}
 			&.active {
@@ -265,7 +327,7 @@ select {
 					max-height: 80vh;
 				}
 				.next {
-					
+					margin-bottom: 1em;
 				}
 			}
 		}
@@ -276,16 +338,22 @@ select {
 		left: 0;
 		right: 0;
 		width: 60%;
-		height: 3em;
+		height: 3.5em;
 		margin: 0 auto;
 		z-index: 3;
 		overflow-y: hidden;
-		transition: bottom .5s ease-in-out;
+		transition: bottom .2s ease-in-out;
 		.bread {
 			text-align: center;
 			background-color: #fff;
-			font-size: 1.25em;
-			padding: .5em 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+			a {
+				font-weight: normal;
+				text-decoration: underline;
+			}
 		}
 		&.toast {
 			bottom: 0;
@@ -465,6 +533,7 @@ select {
 		}
 		&.open {
 			border-color: #000;
+			z-index: 4;
 			.handle {
 				& > a {
 					opacity: 0;
@@ -482,3 +551,29 @@ select {
 	}
 }
 
+.attention {
+	animation: attention 1s ease-in-out;
+	animation-iteration-count: 2;
+	transform-origin: top center;
+}
+@keyframes attention {
+	0%, 100% {
+    	transform: rotate(0deg);
+    	transform-origin: 50% 0;
+	}
+	10% {
+		transform: rotate(2deg);
+	}
+	20%, 40%, 60% {
+		transform: rotate(-4deg);
+	}
+	30%, 50%, 70% {
+		transform: rotate(4deg);
+	}
+	80% {
+		transform: rotate(-2deg);
+	}
+	90% {
+		transform: rotate(2deg);
+	}
+}
