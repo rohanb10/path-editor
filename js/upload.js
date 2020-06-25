@@ -9,23 +9,23 @@ class CorruptInput extends Error {
 const FILE_MAP = {
 	csv: {
 		type: 'CSV',
-		placeholder: '37.76084,-122.42851\n37.76095,-122.42839\n37.76094,-122.42821\n...'
+		placeholder: '\n37.76084,-122.42851\n37.76095,-122.42839\n37.76094,-122.42821\n...'
 	},
 	poly: {
 		type: 'Polyline',
-		placeholder: 'efneFlxfjViBeh@u@k@k_AhEipAgdB...'
+		placeholder: '\nefneFlxfjViBeh@u@k@k_AhEipAgdB...'
 	},
 	cords: {
 		type: 'Coordinates',
-		placeholder: '[]'
+		placeholder: '\n[[37.76095,-122.42839],[37.76094,-122.42821],...\n\n or \n\n{lat: 37.76095, lng:-122.42839},\n{lat: 37.76094, lng:-122.42821}\n...'
 	},
 	json: {
 		type: 'GeoJSON',
-		placeholder: '{\n  "type":"LineString",\n  "coordinates":[\n    [-122.42851, 37.76084],\n    [-122.42839, 37.76095],\n    [-122.42821, 37.76094],\n    [-122.42800, 37.76096],\n    ....\n  ]\n}'
+		placeholder: '\n{\n  "type":"LineString",\n  "coordinates":[\n    [-122.42851, 37.76084],\n    [-122.42839, 37.76095],\n    [-122.42821, 37.76094],\n    [-122.42800, 37.76096],\n    ....\n  ]\n}'
 	},
 	gpx: {
 		type: 'GPX',
-		placeholder: '<trkpt lat="18.974003" lon="72.805345">\n<trkpt lat="18.973853" lon="72.805601">\n<trkpt lat="18.973775" lon="72.805686">\n<trkpt lat="18.973625" lon="72.805680">\n...'
+		placeholder: '\n<trkpt lat="18.974003" lon="72.805345">\n<trkpt lat="18.973853" lon="72.805601">\n<trkpt lat="18.973775" lon="72.805686">\n<trkpt lat="18.973625" lon="72.805680">\n...'
 	},
 }
 
@@ -249,7 +249,7 @@ function uploaded(type, el) {
 		case 'text':
 			if (el.value.length > 0) {
 				document.getElementById('input-file').disabled = true;
-				guessFileType();
+				if (getFileType === null) guessFileType();
 				if (el.value.length !== textInputLength){
 					goToStep(1, textInputLength.length <= 0)
 				}
