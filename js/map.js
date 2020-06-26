@@ -4,20 +4,32 @@ function initialize() {
 	// check map options with cookie
 	setMapOptions();
 	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+	map.mapTypes.set('map_default', new google.maps.StyledMapType(map_default));
+	map.mapTypes.set('map_bones', new google.maps.StyledMapType(map_bones));
+	map.mapTypes.set('map_sand', new google.maps.StyledMapType(map_sand));
+	map.mapTypes.set('map_incognito', new google.maps.StyledMapType(map_incognito));
+	map.setMapTypeId(mapOptions.mapTypeId);
 	map.addListener('tilesloaded', () => {
 		setTimeout(() => document.querySelectorAll('.gm-style-cc').forEach(gm => gm.style.display = 'none'), 150);
 	});
 }
 
 function setMapOptions() {
-	var availableOptions = ['minZoom','maxZoom','precision','mapType','zoomControl', 'strokeColorNum'];
+	var availableOptions = ['minZoom','maxZoom','precision','mapType','mapTypeId','zoomControl', 'strokeColorNum'];
 	Object.assign(mapOptions, defaultMapOptions);
 	if (Object.keys(cookie.all()).length === 0) {
 		availableOptions.forEach(o => cookie.set(o, defaultMapOptions[o], {expires: 14}));
 	} else {
+		console.log('cookie found');
 		Object.keys(cookie.all()).forEach(o => {
 			var val = cookie.get(o);
-			mapOptions[o] = val === 'true' ? true : val === 'false' ? false : val;
+			console.log('cookie val', o, val);
+			val = ['maxZoom','minZoom', 'precision', 'mapType', 'strokeColorNum'].indexOf(o) != -1 ? parseInt(val) : val
+			if (o === 'zoomControl') {
+				val = val === 'true' ? true : false
+			};
+			mapOptions[o] = val;
 		});
 	}
 }

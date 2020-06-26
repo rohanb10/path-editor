@@ -61,23 +61,20 @@
 							</div>
 						</div>
 						<div>
-							<label for="map-theme">Map Theme</label>
-							<select id="map-theme">
-								<option value="roadmap">Default</option>
-							</select>
-						</div>
-						<div>
 							<label for="map-type">Map Type</label>
 							<select id="map-type">
-								<option value="roadmap">Roads (default)</option>
+								<option value="map_default">Basic</option>
 								<option value="satellite">Satellite</option>
 								<option value="hybrid">Hybrid</option>
 								<option value="terrain">Terrain</option>
+								<option value="map_bones">Bones</option>
+								<option value="map_sand">Sand</option>
+								<option value="map_incognito">Incognito</option>
 							</select>
 						</div>
 						<div>
 							<label for="cord-precision">Coordinate precision<a target="_blank" href="https://xkcd.com/2170/" class="sup">?</a></label>
-							<input type="number" id="cord-precision" value="5" min="1" max="8">
+							<input type="number" id="cord-precision" value="5" min="0" max="7">
 						</div>
 						<div>
 							<label for="min-zoom">Min Zoom</label>
@@ -192,7 +189,7 @@
 		</div>
 		<div id="map"></div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPHbxP-tK9oSQRZb5tSC_vZPzLwnOBsbk"></script>
 	<script src="js/vendor.js"></script>
 	<script src="js/script.min.js"></script>
 </body>

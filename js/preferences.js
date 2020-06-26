@@ -2,7 +2,8 @@ var defaultMapOptions = {
 	zoom: 2,
 	maxZoom: 18,
 	minZoom: 2,
-	mapType: 'roadmap',
+	mapTypeId: 'map_default',
+	mapType: 0,
 	zoomControl: true,
 	center: {lat: 0.0, lng: 0.0},
 	precision: 5,
@@ -10,19 +11,24 @@ var defaultMapOptions = {
 	clickableIcons: false,
 	fullscreenControl: false,
 	strokeColorNum: 3,
-	styles: {
-		featureType: 'poi.business',
-		stylers: [{visibility: 'off'}],
-	}
+	streetViewControl: false,
+	mapTypeControl: false,
+	mapTypeControlOptions: {
+		mapTypeIds: ['map_default', 'satellite', 'hybrid', 'terrain', 'map_bones', 'map_sand', 'map_incognito']
+	},
+	// styles: {
+	// 	featureType: 'poi',
+	// 	stylers: [{visibility: 'off'}],
+	// }
 }
 var mapOptions = {};
 
 function loadPrefs() {
-	document.getElementById('min-zoom').value = mapOptions.minZoom;
-	document.getElementById('max-zoom').value = mapOptions.maxZoom;
-	document.getElementById('cord-precision').value = mapOptions.precision;
+	document.getElementById('min-zoom').value = parseInt(mapOptions.minZoom);
+	document.getElementById('max-zoom').value = parseInt(mapOptions.maxZoom);
+	document.getElementById('cord-precision').value = parseInt(mapOptions.precision);
 	document.getElementById('map-type').selectedIndex = mapOptions.mapType;
-	document.getElementById('path-color').dataset.color = mapOptions.strokeColorNum;
+	document.getElementById('path-color').dataset.color = parseInt(mapOptions.strokeColorNum);
 	document.querySelector(`.color-picker-tooltip .color-square[data-color="${mapOptions.strokeColorNum}"]`).classList.add('selected');
 	document.getElementById('zoom-control').checked = mapOptions.zoomControl
 }
@@ -44,21 +50,27 @@ function updatePrefs() {
 	if (mapOptions.zoomControl !== zc) newOptions.zoomControl = zc;
 
 	var mt = document.getElementById('map-type');
-	var mapType = mt.options[mt.selectedIndex].value;
-	if (mapOptions.mapType !== mapType){
-		map.setMapTypeId(mt.options[mt.selectedIndex].value);
+	var mapTypeId = mt.options[mt.selectedIndex].value;
+	if (mapOptions.mapTypeId !== mapTypeId){
+		map.setMapTypeId(mapTypeId);
 		newOptions.mapType = mt.selectedIndex;
+		newOptions.mapTypeId = mapTypeId;
 	}
 
-	newOptions.strokeColorNum = document.getElementById('path-color').dataset.color;
-	if (path) path.setOptions({strokeColor: getColorFromNum(newOptions.strokeColorNum)});
+	var sc = parseInt(document.getElementById('path-color').dataset.color);
+	if (mapOptions.strokeColorNum !== sc) newOptions.strokeColorNum = sc;
+	if (path && mapOptions.strokeColorNum !== sc) path.setOptions({strokeColor: getColorFromNum(newOptions.strokeColorNum)});
 
-	map.setOptions(newOptions);
-	Object.keys(newOptions).forEach(no => {
-		cookie.set(no, newOptions[no], {expires: 14})
-	});
-	Object.assign(mapOptions,newOptions);
+	if (Object.keys(newOptions).length > 0) {
+		console.log('New options', newOptions);
+		map.setOptions(newOptions);
+		Object.keys(newOptions).forEach(no => {
+			cookie.set(no, newOptions[no], {expires: 14})
+		});
+		Object.assign(mapOptions,newOptions);
+	}
 	closeDrawer();
+	console.log('Fresh Cookie', cookie.all());
 }
 
 function openDrawer(el) {

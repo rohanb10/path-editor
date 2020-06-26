@@ -117,7 +117,8 @@ function getCoordinatesFromGPX(gpx) {
 }
 
 function getCoordinatesFromCSV(csv) {
-	const regex_line = /((-|\+)?\d{1,3}\.\d{0,7}){1,2}/g;
+	var csv = csv.replace(/[^\d,\.\-\+]/g, '');
+	const regex_line = /((-|\+)?\d{1,2}\.\d{0,7}),((-|\+)?\d{1,3}\.\d{0,7})/g;
 	
 	var validLines = csv.match(regex_line);
 
@@ -131,6 +132,10 @@ function getCoordinatesFromCSV(csv) {
 	if (typeof cords === 'boolean' && !cords) return false;
 
 	return removeDuplicates(cords);
+}
+
+function getCoordinatesFromText(text) {
+	const regex_line = /((-|\+)?\d{1,3}\.\d{0,7}){1,2}/g;
 }
 
 function getCoordinatesFromGeoJSON(jsonString) {
@@ -163,7 +168,7 @@ function getCoordinatesFromGeoJSON(jsonString) {
 			throw new CorruptInput(['No <a target="_blank" href="https://tools.ietf.org/html/rfc7946#section-3.1.4">LineStrings</a> found', 'Unable to preview GeoJSON']);
 		}
 		
-		cords = getValidCoordinates(cords);
+		cords = getValidCoordinatesFromGeoJSON(cords);
 
 		if (typeof cords === 'boolean' && !cords) return false;
 		return removeDuplicates(cords);
@@ -182,7 +187,7 @@ function getCoordinatesFromGeoJSON(jsonString) {
 	}
 }
 
-function getValidCoordinates(cords, precision = 5) {
+function getValidCoordinatesFromGeoJSON(cords, precision = 5) {
 	var validCords = [];
 	var allValid = true;
 	cords.forEach(c => {
