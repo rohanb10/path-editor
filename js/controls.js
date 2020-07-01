@@ -169,6 +169,7 @@ function resetUploadForm() {
 
 function grabAttention(el) {
 	if (!el) return;
+	el.classList.remove('attention')
 	el.addEventListener('mouseover', _ => el.classList.remove('attention'), {once:true})
 	el.addEventListener('animationend', _ => el.classList.remove('attention'), {once:true})
 	setTimeout(_ => el.classList.add('attention'), 100);

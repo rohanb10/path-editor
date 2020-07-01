@@ -555,29 +555,22 @@ select {
 }
 
 .attention {
-	animation: attention 1s ease-in-out;
-	animation-iteration-count: 2;
+	animation: attention 1.5s ease-in-out;
+	animation-iteration-count: 1;
 	transform-origin: top center;
 }
 @keyframes attention {
 	0%, 100% {
-    	transform: rotate(0deg);
-    	transform-origin: 50% 0;
+		transform: scale(1);
 	}
-	10% {
-		transform: rotate(2deg);
+	30% {
+		transform: scale(.8) rotateZ(0deg);
 	}
-	20%, 40%, 60% {
-		transform: rotate(-4deg);
+	40%, 60%, 80% {
+		transform: scale(1.15) rotateZ(-5deg);
 	}
-	30%, 50%, 70% {
-		transform: rotate(4deg);
-	}
-	80% {
-		transform: rotate(-2deg);
-	}
-	90% {
-		transform: rotate(2deg);
+	50%, 70%, 90% {
+		transform: scale(1.15) rotateZ(5deg);
 	}
 }
 @media screen and (max-width: 40em) {
